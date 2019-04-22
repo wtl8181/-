@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+}
+body{
+    font-family: 'Helvetica Neue',Helvetica,sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+input,button,select,textarea{
+  outline:none
+}
+.clearFix{
+    position: relative;
+}
+.clearFix::after{
+    content: '';
+    display: block;
+    clear: both;
+    zoom: 1;
+    overflow: hidden;
+}
+.borderR{
+    border: 1px solid red;
+}
+.borderB{
+    border: 1px solid blue;
+}
+.border{
+    border: 1px solid black;
+}
+
+.fw{
+    font-weight: bold;
+}
+/* icon被选时的颜色 */
+.rlActive{
+    color: #fb8972 !important;
+}
+
+
+input::-webkit-input-placeholder{
+  color:#999;
+  opacity: 0.4;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#999;
+  opacity: 0.4;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#999;
+  opacity: 0.4;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+  color:#999;
+  opacity: 0.4;
+}
+/*a标签在手机上显示异常*/
+a:-webkit-any-link{ color: inherit;}
+
+
+
+
+
