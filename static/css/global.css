@@ -6,7 +6,7 @@ code, kbd, pre, samp { font-family:couriernew, courier, monospace; }
 small{ font-size:12px; }
 ul, ol { list-style:none; }
 a { text-decoration:none; }
-a:hover { text-decoration:underline; }
+a:hover { text-decoration:none; }
 sup { vertical-align:text-top; }
 sub{ vertical-align:text-bottom; }
 legend { color:#000; }
@@ -20,9 +20,6 @@ body{
     font-family: 'Helvetica Neue',Helvetica,sans-serif;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
-}
-a{
-    text-decoration: none;
 }
 li{
     list-style: none;
@@ -83,6 +80,10 @@ input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
 }
 /*a标签在手机上显示异常*/
 a:-webkit-any-link{ color: inherit;}
+.grey{
+  color: #999999;
+}
+
 
 
 

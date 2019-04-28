@@ -7,7 +7,6 @@ import $ from 'jquery'
 import chartjs from 'chart.js'
 import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css';
-import '../static/css/globalLess.less'
 import '../static/css/global.css'//引入全球样式
 Vue.prototype.$ajax = Axios
 Vue.prototype.$ = $

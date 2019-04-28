@@ -3,12 +3,12 @@
   <div id="app">
     <div class="leftPart clearFix">
       <ul>
-        <li><i class="icon-xitongxiaoxi iconfont "></i></li>
-        <li><i class="icon-wodexiaoxi iconfont "></i></li>
-        <li><i class="icon-zhuye iconfont "></i></li>
-        <li><i class="icon-xitong iconfont "></i></li>
-        <li><i class="icon-fanhui iconfont "></i></li>
-        <li><i class="icon-tuichu iconfont "></i></li>
+        <li><i class="icon-full_screen iconfont "></i></li>
+        <li><i class="icon-alarm iconfont "></i></li>
+        <li><i class="icon-tiaozheng iconfont "></i></li>
+        <li><i class="icon-back iconfont "></i></li>
+        <li><i class="icon-pic iconfont "></i></li>
+        <li><i class="icon-elctri_Tower iconfont "></i></li>
         <li><i class="icon-icon02 iconfont "></i></li>
       </ul>
     </div>
@@ -18,16 +18,18 @@
           <img src="../static/image/logo.png" height="50px"/>
           输电线路智能监控系统
         </div>
-        <ul class="header-menu">
-          <li class="menu-item">
-            <router-link :to="{name:'Map'}">线路地图</router-link>
-          </li>
-          <li class="menu-item">消息中心</li>
+        <div class="header-menu">
+          <router-link :to="{name:'Map'}" class="menu-item">
+              线路地图
+          </router-link>
+          <router-link :to="{name:'WarningList'}" class="menu-item">
+            预警管理
+          </router-link>
           <li class="menu-item">订单管理</li>
           <li class="menu-item">处理中心</li>
           <li class="menu-item">处理中心</li>
           <li class="menu-item ">处理中心</li>
-        </ul>
+        </div>
         <div class="user">管理员</div>
       </div>
       <router-view id="content"/>
