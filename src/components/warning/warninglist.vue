@@ -112,11 +112,11 @@
       </div>
       <el-table class="data-table"  max-height="500" min-height="500" :header-cell-style="thStyle"
                 :border='true' ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-                tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+                tooltip-effect="dark" style="width: 100%" >
         <el-table-column type="selection" width="55">
         </el-table-column>
         <!--for渲染-->
-        <el-table-column v-for="(item,index) in ths":key="index"
+        <el-table-column v-for="(item,index) in ths":key="index"  v-if="!item.isHide"
                          :prop="item.prop" :label="item.label" width="120"
                          :sortable="item.prop==='warningDate'||item.prop==='fixDate'?true:false">
         </el-table-column>
@@ -133,7 +133,7 @@
         </el-table-column>
       </el-table>
       <div class="paginationClass clearFix" style="margin-top: 10px">
-        <div class="showRule fl" @click="adjust">
+        <div class="showRule fl" @click="isShow=true">
           <i class="icon-tiaozheng iconfont"></i>
           调整显示规则
         </div>
@@ -147,37 +147,37 @@
       </div>
 
 
-
-
-
       <div class="ad-alert" v-show="isShow">
         <p>显示字段设置
-          <i class="icon-close iconfont" @click="isShow=false">
+          <i class="icon-close iconfont" @click="noAdjust">
           </i>
         </p>
-        <el-table class="ad-table"  max-height="400" min-height="500"
-                  ref="multipleTable" :data="ths"
-                  tooltip-effect="dark" style="width: 100%" >
-          <el-table-column type="selection" width="75" ></el-table-column>
+        <table border="1" style="margin: auto;border: 1px solid #ddd" >
+          <tr >
+            <th width="70" height="40">
+              是否显示
+            </th>
+            <th width="80">字段名</th>
+            <th width="50">顺序</th>
+          </tr>
+          <tr v-for="(item,index) in thsModel" :key="item.prop" style="text-align: center" height="30">
+            <td>
+              <i class="icon-duigou iconfont" @click="clickTd(index)" :class="{hideTh:item.isHide}">
+              </i>
+            </td>
+            <td>{{item.label}}</td>
+            <td >
+              <i class="icon-down iconfont" @click="modelSort(index,-1)"></i>
+              <i class="icon-up iconfont" @click="modelSort(index,1)"></i>
+            </td>
+          </tr>
+        </table>
 
-          <el-table-column prop="label" label="字段" width="120" >
-          </el-table-column>
-
-          <el-table-column label="操作">
-            <template slot-scope="scope">
-              <div>
-                <i class="icon-up iconfont"></i>
-              </div>
-              <div >
-                <i class="icon-down iconfont"></i>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
         <div style="text-align: center; padding:10px 10px">
-          <el-button class="my-button2" style="width: 50px;height: 28px; margin:auto">确定</el-button>
-          <el-button class="my-button2" style="width: 50px;height: 28px; margin:auto" @click="isShow=false">取消</el-button>
+          <el-button class="my-button2" style="width: 50px;height: 28px; margin:auto" @click="adjust">确定</el-button>
+          <el-button class="my-button2" style="width: 50px;height: 28px; margin:auto" @click="noAdjust">取消</el-button>
         </div>
+
       </div>
 
     </div>
@@ -186,24 +186,41 @@
 </template>
 
 <script>
+  import {deepCopy} from '../../../static/global'
   export default {
     data() {
       return {
         isShow:false,
+        multipleSelection:0,
         ths:[
-          {prop:'No',label:'编号'},
-          {prop:'voltage',label:'电压'},
-          {prop:'line',label:'线路'},
-          {prop:'tower',label:'杆塔'},
-          {prop:'orientation',label:'监拍朝向'},
-          {prop:'warningDate',label:'预警日期'},
-          {prop:'reason',label:'预警原因'},
-          {prop:'level',label:'预警等级'},
-          {prop:'status',label:'状态'},
-          {prop:'person',label:'处理人'},
-          {prop:'way',label:'处理方式'},
-          {prop:'describe',label:'描述'},
-          {prop:'fixDate',label:'处理时间'},
+          {prop:'No',label:'编号',isHide:false},
+          {prop:'voltage',label:'电压',isHide:false},
+          {prop:'line',label:'线路',isHide:false},
+          {prop:'tower',label:'杆塔',isHide:false},
+          {prop:'orientation',label:'监拍朝向',isHide:false},
+          {prop:'warningDate',label:'预警日期',isHide:false},
+          {prop:'reason',label:'预警原因',isHide:false},
+          {prop:'level',label:'预警等级',isHide:false},
+          {prop:'status',label:'状态',isHide:false},
+          {prop:'person',label:'处理人',isHide:false},
+          {prop:'way',label:'处理方式',isHide:false},
+          {prop:'describe',label:'描述',isHide:false},
+          {prop:'fixDate',label:'处理时间',isHide:false},
+        ],
+        thsModel:[
+          {prop:'No',label:'编号',isHide:false},
+          {prop:'voltage',label:'电压',isHide:false},
+          {prop:'line',label:'线路',isHide:false},
+          {prop:'tower',label:'杆塔',isHide:false},
+          {prop:'orientation',label:'监拍朝向',isHide:false},
+          {prop:'warningDate',label:'预警日期',isHide:false},
+          {prop:'reason',label:'预警原因',isHide:false},
+          {prop:'level',label:'预警等级',isHide:false},
+          {prop:'status',label:'状态',isHide:false},
+          {prop:'person',label:'处理人',isHide:false},
+          {prop:'way',label:'处理方式',isHide:false},
+          {prop:'describe',label:'描述',isHide:false},
+          {prop:'fixDate',label:'处理时间',isHide:false},
         ],
         sDate:'',
         eDate:'',
@@ -604,9 +621,6 @@
           this.$('.bts button').removeClass('selected')
           e.target.classList.add('selected')
       },
-      handleSelectionChange(index,row){
-        console.log(index,row)
-      },
       handleEdit(index, row) {
         console.log(index, row);
       },
@@ -619,13 +633,33 @@
       handleCurrentChange(currentPage){
         this.currentPage = currentPage;
       },
+      modelSort(index,num){
+        if(num===-1&&index<this.thsModel.length-1){
+          let baby = this.thsModel[index];
+          this.$set(this.thsModel, index, this.thsModel[index+1])
+          this.$set(this.thsModel, index+1,baby)
+        }
+        if(num===1&&index>0){
+          let baby2 = this.thsModel[index];
+          this.$set(this.thsModel, index, this.thsModel[index-1])
+          this.$set(this.thsModel, index-1,baby2)
+        }
+
+      },
+      clickTd(index){
+        this.thsModel[index].isHide = !this.thsModel[index].isHide;
+      },
       adjust(){
-       this.isShow = true
-        // let newThs = this.ths.sort(()=>{
-        //   return Math.random() - 0.5
-        // })
-        // this.$set(this.ths,newThs)
+        this.ths = deepCopy(this.thsModel);
+        this.isShow = false;
+      },
+      noAdjust(){
+        this.thsModel = deepCopy(this.ths)
+        this.isShow = false;
       }
+
+
+
     },
     mounted() {
 
@@ -650,6 +684,11 @@
 </style>
 
 <style scoped lang="less">
+  .icon-up,.icon-down{
+    &:hover{
+      color: #24cdd0;
+    }
+  }
   .selected{
     border: 1px solid #24cdd0 !important;
     color: #24cdd0;
@@ -759,6 +798,19 @@
             color: #999;
             cursor: pointer;
           }
+        }
+        .icon-duigou{
+          display: block;
+          margin: auto;
+          border: 1px solid #ddd;
+          width: 15px;
+          height: 15px;
+          border-radius: 3px;
+          color: blue;
+
+        }
+        .hideTh{
+          color: white;
         }
       }
     }
