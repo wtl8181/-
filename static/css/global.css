@@ -84,7 +84,12 @@ a:-webkit-any-link{ color: inherit;}
   color: #999999;
 }
 
-
+.menu-selected{
+  border: 1px solid skyblue ;
+  box-shadow: 0 0  10px 1px skyblue ;
+  color: white !important;
+  background-color: inherit ;
+}
 
 
 

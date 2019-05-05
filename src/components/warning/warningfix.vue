@@ -1,5 +1,5 @@
 <template>
-
+  <div>预警处理</div>
 </template>
 
 <script>

@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>数据字典</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "dictionary"
     }
 </script>
 

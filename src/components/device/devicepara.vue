@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>设备参数</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "devicepara"
     }
 </script>
 

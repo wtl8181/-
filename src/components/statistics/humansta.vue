@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+  <div>人员统计</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "humansta"
     }
 </script>
 

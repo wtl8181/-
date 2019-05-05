@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>用户管理</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "user"
     }
 </script>
 

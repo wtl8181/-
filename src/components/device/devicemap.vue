@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>设备地图</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "devicemap"
     }
 </script>
 

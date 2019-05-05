@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>预警统计</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "warningsta"
     }
 </script>
 

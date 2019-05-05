@@ -1,10 +1,10 @@
 <template>
-  <div>预警设置</div>
+    <div>推送设置</div>
 </template>
 
 <script>
     export default {
-        name: "warningsetting"
+        name: "popup"
     }
 </script>
 
