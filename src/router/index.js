@@ -82,7 +82,7 @@ export default new Router({
       ]
     },
     {
-      path:'/inspection/inspection',
+      path:'/inspection',
       name:'Inspection',
       component:Inspection
     },

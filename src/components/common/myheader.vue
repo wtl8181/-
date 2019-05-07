@@ -6,7 +6,7 @@
     </div>
     <div class="menu" >
       <div class="item item1">
-        <p :class="this.$store.state.menuLocation===1?'menu-selected':''">
+        <p :class="this.$store.state.menu===''?'menu-selected':''">
           <router-link :to="{name:'Map'}" class="menu-item selected">
             线路地图
           </router-link>
@@ -14,7 +14,7 @@
 
       </div>
       <div class="item item2" >
-        <p :class="this.$store.state.menuLocation===2?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/warning'?'menu-selected':''">
           预警管理
         </p>
         <div class="item-children">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="item item3">
-        <p :class="this.$store.state.menuLocation===3?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/danger'?'menu-selected':''">
           隐患管理
         </p>
         <div class="item-children">
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="item item4">
-        <p :class="this.$store.state.menuLocation===4?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/inspection'?'menu-selected':''">
           <router-link :to="{name:'Inspection'}" class="item-child">
             远程巡检
           </router-link>
@@ -51,7 +51,7 @@
 
       </div>
       <div class="item item5">
-        <p :class="this.$store.state.menuLocation===5?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/statistics'?'menu-selected':''">
           数据统计
         </p>
         <div class="item-children">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="item item6">
-        <p :class="this.$store.state.menuLocation===6?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/device'?'menu-selected':''">
           设备管理
         </p>
         <div class="item-children">
@@ -92,7 +92,7 @@
         </div>
       </div>
       <div class="item item7">
-        <p :class="this.$store.state.menuLocation===7?'menu-selected':''">
+        <p :class="this.$store.state.menu==='/manage'?'menu-selected':''">
           系统管理
         </p>
         <div class="item-children">
@@ -139,11 +139,11 @@
       mounted(){
           let _this  = this;
         _this.$('.item ').hover(function(){
-          _this.$(this.querySelector('p')).addClass('menu-selected')
+          _this.$(this.querySelector('p')).addClass('menu-selected-local')
           _this.$(this.querySelector('.item-children')).css('display','block')
           _this.$(this.querySelector('.item-children')).animate({opacity:'0.9'})
         },function(){
-          _this.$(this.querySelector('p')).removeClass('menu-selected')//与css的hover的区别
+          _this.$(this.querySelector('p')).removeClass('menu-selected-local')//与css的hover的区别
           _this.$(this.querySelector('.item-children')).css('display','none')
           _this.$(this.querySelector('.item-children')).animate({opacity:'0.5'})
         })
@@ -153,7 +153,7 @@
 </script>
 
 <style scoped lang="less">
-  .menu-selected{
+  .menu-selected-local{
     border: 1px solid skyblue ;
     box-shadow: 0 0  10px 1px skyblue ;
     color: white !important;

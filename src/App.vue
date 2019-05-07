@@ -14,7 +14,9 @@
     </div>
     <div class="rightPart clearFix">
       <my-header></my-header>
-      <router-view id="content"/>
+      <div id="content">
+        <router-view />
+      </div>
     </div>
 
 
@@ -74,11 +76,11 @@ export default {
     box-sizing: border-box;
     width: 1850px;
     height: 100%;
-    background-color: white;
     #content{
       box-sizing: border-box;
-      height: 980px;
+      height: 980px;//总高1080  菜单栏100
       border: 1px solid deeppink;
+      background-color: white;
     }
 
 

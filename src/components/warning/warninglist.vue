@@ -1,14 +1,7 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" id="warninglist">
     <div class="content">
-      <div class="breadcrumb">
-        <p class="grey title">当前位置：</p>
-        <el-breadcrumb separator="/" >
-          <el-breadcrumb-item class="item">首页</el-breadcrumb-item>
-          <el-breadcrumb-item class="item">预警管理</el-breadcrumb-item>
-          <el-breadcrumb-item class="grey item">预警列表</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+      <bread-crumb :title="['首页','预警管理']"  :title-grey="['预警列表']"></bread-crumb>
       <div class="oneKey">
         <button class="my-button2">一键处理今日预警</button>
         <button class="my-button2">一键处理待处理预警</button>
@@ -111,7 +104,7 @@
         </ul>
       </div>
       <el-table class="data-table"  max-height="500" min-height="500" :header-cell-style="thStyle"
-                :border='true' ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                :border='true' ref="multipleTable" :data="tableData"
                 tooltip-effect="dark" style="width: 100%" >
         <el-table-column type="selection" width="55">
         </el-table-column>
@@ -187,40 +180,70 @@
 
 <script>
   import {deepCopy} from '../../../static/global'
+  import breadCrumb from "../common/breadcrumb";
   export default {
+    components: {breadCrumb},
     data() {
       return {
         isShow:false,
         multipleSelection:0,
         ths:[
-          {prop:'No',label:'编号',isHide:false},
-          {prop:'voltage',label:'电压',isHide:false},
-          {prop:'line',label:'线路',isHide:false},
+          {prop:'towerCode',label:'编号',isHide:false},
+          {prop:'towerVoltage',label:'电压',isHide:false},
+          {prop:'towerCircuit',label:'线路',isHide:false},
           {prop:'tower',label:'杆塔',isHide:false},
-          {prop:'orientation',label:'监拍朝向',isHide:false},
-          {prop:'warningDate',label:'预警日期',isHide:false},
-          {prop:'reason',label:'预警原因',isHide:false},
-          {prop:'level',label:'预警等级',isHide:false},
-          {prop:'status',label:'状态',isHide:false},
-          {prop:'person',label:'处理人',isHide:false},
-          {prop:'way',label:'处理方式',isHide:false},
-          {prop:'describe',label:'描述',isHide:false},
-          {prop:'fixDate',label:'处理时间',isHide:false},
+          {prop:'monitorOrientation',label:'监拍朝向',isHide:false},
+          {prop:'alarmTime',label:'预警时间',isHide:false},
+          {prop:'alarmCauseDescribe',label:'预警原因',isHide:false},
+          {prop:'alarmLevelDescri',label:'预警等级',isHide:false},
+          {prop:'remark',label:'状态',isHide:false},
+          {prop:'disposeUser',label:'处理人',isHide:false},
+          {prop:'disposeMethodDescri',label:'处理方式',isHide:false},
+          {prop:'alarmDescribe',label:'描述',isHide:false},
+          {prop:'disposeTime',label:'处理时间',isHide:false},
+
+
+          {prop:'createTime',label:'创建时间',isHide:true},
+          {prop:'createUser',label:'创建人',isHide:true},
+          {prop:'disposeMethodCode',label:'处理方式码',isHide:true},
+          {prop:'id',label:'id',isHide:true},
+          {prop:'ipcId',label:'ipcId',isHide:true},
+          {prop:'modifyTime',label:'修改时间',isHide:true},
+          {prop:'modifyUser',label:'修改人',isHide:true},
+          {prop:'alarmCode',label:'预警码',isHide:true},
+          {prop:'alarmImage',label:'预警图片',isHide:true},
+          {prop:'alarmLevelCode',label:'预警等级码',isHide:true},
+          {prop:'alarmCauseCode',label:'预警原因码',isHide:true},
+          {prop:'status',label:'状态码',isHide:true},
         ],
         thsModel:[
-          {prop:'No',label:'编号',isHide:false},
-          {prop:'voltage',label:'电压',isHide:false},
-          {prop:'line',label:'线路',isHide:false},
+          {prop:'towerCode',label:'编号',isHide:false},
+          {prop:'towerVoltage',label:'电压',isHide:false},
+          {prop:'towerCircuit',label:'线路',isHide:false},
           {prop:'tower',label:'杆塔',isHide:false},
-          {prop:'orientation',label:'监拍朝向',isHide:false},
-          {prop:'warningDate',label:'预警日期',isHide:false},
-          {prop:'reason',label:'预警原因',isHide:false},
-          {prop:'level',label:'预警等级',isHide:false},
-          {prop:'status',label:'状态',isHide:false},
-          {prop:'person',label:'处理人',isHide:false},
-          {prop:'way',label:'处理方式',isHide:false},
-          {prop:'describe',label:'描述',isHide:false},
-          {prop:'fixDate',label:'处理时间',isHide:false},
+          {prop:'monitorOrientation',label:'监拍朝向',isHide:false},
+          {prop:'alarmTime',label:'预警时间',isHide:false},
+          {prop:'alarmCauseDescribe',label:'预警原因',isHide:false},
+          {prop:'alarmLevelDescri',label:'预警等级',isHide:false},
+          {prop:'remark',label:'状态',isHide:false},
+          {prop:'disposeUser',label:'处理人',isHide:false},
+          {prop:'disposeMethodDescri',label:'处理方式',isHide:false},
+          {prop:'alarmDescribe',label:'描述',isHide:false},
+          {prop:'disposeTime',label:'处理时间',isHide:false},
+
+
+          {prop:'createTime',label:'创建时间',isHide:true},
+          {prop:'createUser',label:'创建人',isHide:true},
+          {prop:'disposeMethodCode',label:'处理方式码',isHide:true},
+          {prop:'id',label:'id',isHide:true},
+          {prop:'ipcId',label:'ipcId',isHide:true},
+          {prop:'modifyTime',label:'修改时间',isHide:true},
+          {prop:'modifyUser',label:'修改人',isHide:true},
+          {prop:'alarmCode',label:'预警码',isHide:true},
+          {prop:'alarmImage',label:'预警图片',isHide:true},
+          {prop:'alarmLevelCode',label:'预警等级码',isHide:true},
+          {prop:'alarmCauseCode',label:'预警原因码',isHide:true},
+          {prop:'status',label:'状态码',isHide:true},
         ],
         sDate:'',
         eDate:'',
@@ -246,371 +269,7 @@
           value: '选项5',
           label: '220v'
         }],
-        tableData: [{
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.6'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.26'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.19'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.7.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2007.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, {
-          No: 'Y032',
-          voltage: '5v',
-          line: '白兰线',
-          tower:'035',
-          orientation:'本体',
-          warningDate:'2015.06.17',
-          reason:'疑似烟雾',
-          level:'严重',
-          status:'待处理',
-          person:'狗蛋',
-          way:'重复报警',
-          describe:'有鸟巢，需要处理',
-          fixDate:'2017.6.16'
-        }, ],
+        tableData:[],
         value:'',
         pageSize:20,
         currentPage:1,
@@ -661,9 +320,15 @@
 
 
     },
-    mounted() {
-
-
+    created() {
+      this.$ajax.get('api/v1/alarm/page/9/15')
+        .then((res)=>{
+          this.tableData = res.data.data;
+          console.log(res.data.cursor)
+        })
+        .catch(function (error) {
+          console.log(error)
+        });
     }
   };
 </script>
@@ -718,27 +383,11 @@
     width: 100%;
     height: 100%;
     background-color: #f8f8f8;
+    overflow: hidden;
     .content {
       width: 98%;
       height: auto;
       margin: 10px auto 0;
-      /*border: 1px solid blue;*/
-      .breadcrumb{
-        font-size: 14px;
-        font-weight: bold;
-        vertical-align: center;
-        p{
-          text-indent: 1em;
-        }
-        .item{
-          position: relative;
-          top: 4px;
-        }
-        .title{
-          float: left;
-
-        }
-      }
       .oneKey{
           margin: 15px 0;
       }
@@ -779,7 +428,7 @@
       }
       .ad-alert{
         position: fixed;
-        top: 300px;
+        top: 50px;
         left: 0;
         right: 0;
         margin: auto;

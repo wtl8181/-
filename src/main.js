@@ -11,10 +11,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '../static/css/global.css'//引入全球样式
 import '../static/global'
 Vue.prototype.$ajax = Axios;
+Axios.defaults.headers.post['Content-Type'] = 'application/json';//json格式发请求
 Vue.prototype.$ = $;
 Vue.prototype.$echarts = echarts;
 
-Axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 Vue.config.productionTip = false;
 Vue.use(ElementUI,{ size: 'small', zIndex: 3000 });
 let app = new Vue({
@@ -26,8 +27,7 @@ let app = new Vue({
   template: '<App/>'
 });
 router.beforeEach((to, from, next) => {
-  // console.log(to.matched[0])
-  app.$store.commit("INCREMENT");
-  next()
+   app.$store.commit('lightMenu',to.matched[0].path)
+   next()
 })
 

@@ -98,7 +98,6 @@
           </li>
         </ul>
         <div class="container" ref="container">
-
         </div>
       </div>
     </div>
@@ -252,14 +251,15 @@
 
   }
   .wrap{
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
-    background-color: #02125f;
+    background-color: #02125f !important;
+    overflow: hidden;
     .content{
       width: 98%;
       height: 100%;
       margin:10px auto 0;
-      /*border: 1px solid white;*/
       .boxes{
         display: flex;
         border: 1px solid black;

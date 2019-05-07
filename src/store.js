@@ -4,12 +4,11 @@ import  Vuex from 'vuex'
 Vue.use(Vuex)
 const  store = new Vuex.Store({
   state:{//state数据跟根组件data写法一模一样。也是储存数据的
-   menuLocation:1
+    menu:'',
   },
   mutations:{//此处的function是同步操作的。其他的都跟上面一样
-    INCREMENT(state){
-      state.menuLocation++
-      console.log(typeof state.menuLocation)
+    lightMenu(state,location){
+      state.menu = location
     }
 
   },
