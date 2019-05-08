@@ -1,5 +1,8 @@
 <template>
-   <button>{{title}}</button>
+   <button>
+     {{title}}
+     <slot></slot>
+   </button>
 </template>
 
 <script>
